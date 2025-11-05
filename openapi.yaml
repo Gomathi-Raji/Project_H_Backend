@@ -1,0 +1,1557 @@
+openapi: 3.0.0
+info:
+  title: Hostel Management API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT Authorization header using the Bearer scheme. Enter your token in the text input below.
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /api/auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  /api/chat:
+    post:
+      summary: Send chat message to AI bot (protected)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                role:
+                  type: string
+                  enum: [tenant, admin]
+      responses:
+        '200':
+          description: OK
+  /api/rent/send-alerts:
+    post:
+      summary: Send rent reminder/overdue alerts via SMS (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Alerts sent
+  /api/rent/mark-payment-received:
+    post:
+      summary: Mark rent payment as received and send confirmation SMS (admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+      responses:
+        '200':
+          description: Payment marked and SMS sent
+  /api/rent/pending-payments:
+    get:
+      summary: Get all pending rent payments (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of pending payments
+  /api/rent/monthly-summary:
+    get:
+      summary: Get monthly rent collection summary (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: month
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: year
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Monthly summary
+  /api/rent/logs:
+    get:
+      summary: Get SMS logs (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of SMS logs
+  /api/rent/seed-mock-data:
+    post:
+      summary: Seed mock data for testing rent alerts (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Mock data seeded successfully
+  /api/tenants:
+    get:
+      summary: Get all tenants with filtering and pagination
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, all]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of tenants
+    post:
+      summary: Add a new tenant (admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                aadharNumber:
+                  type: string
+                room:
+                  type: string
+                moveInDate:
+                  type: string
+                  format: date
+                emergencyContactName:
+                  type: string
+                emergencyContactRelationship:
+                  type: string
+                emergencyContactPhone:
+                  type: string
+                securityDeposit:
+                  type: number
+      responses:
+        '201':
+          description: Tenant created
+  /api/tenants/stats:
+    get:
+      summary: Get tenant statistics (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tenant statistics
+  /api/tenants/{id}:
+    get:
+      summary: Get a specific tenant
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tenant details
+    put:
+      summary: Update a tenant (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Tenant updated
+    delete:
+      summary: Delete a tenant (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tenant deleted
+  /api/rooms:
+    get:
+      summary: Get all rooms with filtering and pagination
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [available, occupied, maintenance, all]
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [single, double, shared, all]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of rooms
+    post:
+      summary: Add a new room (staff/admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                type:
+                  type: string
+                  enum: [single, double, shared]
+                rent:
+                  type: number
+                capacity:
+                  type: number
+                status:
+                  type: string
+                  enum: [available, occupied, maintenance]
+      responses:
+        '201':
+          description: Room created
+  /api/rooms/stats:
+    get:
+      summary: Get room statistics
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Room statistics
+  /api/rooms/{id}:
+    get:
+      summary: Get a specific room
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Room details
+    put:
+      summary: Update a room (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Room updated
+    delete:
+      summary: Delete a room (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Room deleted
+  /api/tickets:
+    get:
+      summary: Get all tickets with filtering and pagination (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, in_progress, resolved, closed, All]
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum: [low, medium, high, All]
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [technical, payment, maintenance, complaint, security, plumbing, other, All]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of tickets
+    post:
+      summary: Create a new ticket
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                tenant:
+                  type: string
+                priority:
+                  type: string
+                  enum: [low, medium, high]
+                category:
+                  type: string
+                  enum: [technical, payment, maintenance, complaint, security, plumbing, other]
+      responses:
+        '201':
+          description: Ticket created
+  /api/tickets/stats:
+    get:
+      summary: Get ticket statistics (staff/admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Ticket statistics
+  /api/tickets/{id}:
+    get:
+      summary: Get a specific ticket (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket details
+    put:
+      summary: Update a ticket (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Ticket updated
+    delete:
+      summary: Delete a ticket (staff/admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket deleted
+  /api/payments:
+    get:
+      summary: Get all payments with filtering and pagination (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, completed, failed, refunded, all]
+        - name: method
+          in: query
+          schema:
+            type: string
+            enum: [cash, card, online, bank_transfer, check, all]
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [rent, deposit, maintenance, other, all]
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of payments
+    post:
+      summary: Add a new payment (admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenant:
+                  type: string
+                amount:
+                  type: number
+                method:
+                  type: string
+                  enum: [cash, card, online, bank_transfer, check]
+                type:
+                  type: string
+                  enum: [rent, deposit, maintenance, other]
+                notes:
+                  type: string
+                reference:
+                  type: string
+      responses:
+        '201':
+          description: Payment created
+  /api/payments/stats:
+    get:
+      summary: Get payment statistics (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Payment statistics
+  /api/payments/{id}:
+    get:
+      summary: Get a specific payment (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment details
+    put:
+      summary: Update a payment (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Payment updated
+    delete:
+      summary: Delete a payment (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment deleted
+  /api/expenses:
+    get:
+      summary: Get all expenses with filtering and pagination
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [utilities, maintenance, supplies, staff, marketing, insurance, other, All]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, approved, paid, cancelled, All]
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of expenses
+    post:
+      summary: Add a new expense (admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  enum: [utilities, maintenance, supplies, staff, marketing, insurance, other]
+                subcategory:
+                  type: string
+                amount:
+                  type: number
+                description:
+                  type: string
+                supplier:
+                  type: string
+                paymentMethod:
+                  type: string
+                  enum: [cash, bank_transfer, credit_card, check, online]
+                date:
+                  type: string
+                  format: date
+                dueDate:
+                  type: string
+                  format: date
+                status:
+                  type: string
+                  enum: [pending, approved, paid, cancelled]
+                notes:
+                  type: string
+      responses:
+        '201':
+          description: Expense created
+  /api/expenses/stats:
+    get:
+      summary: Get expense statistics (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Expense statistics
+  /api/expenses/{id}:
+    get:
+      summary: Get a specific expense
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expense details
+    put:
+      summary: Update an expense (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Expense updated
+    delete:
+      summary: Delete an expense (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expense deleted
+  /api/tenants/dashboard/my-info:
+    get:
+      summary: Get tenant dashboard information (tenant only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tenant dashboard data including profile, room, and payment info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tenant:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      room:
+                        type: object
+                        properties:
+                          number:
+                            type: string
+                          type:
+                            type: string
+                          rent:
+                            type: number
+                      moveInDate:
+                        type: string
+                        format: date
+                      status:
+                        type: string
+                        enum: [active, inactive]
+                  recentPayments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                        type: string
+                        amount:
+                          type: number
+                        type:
+                          type: string
+                        status:
+                          type: string
+                        date:
+                          type: string
+                          format: date
+                  pendingPayments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        amount:
+                          type: number
+                        type:
+                          type: string
+                        dueDate:
+                          type: string
+                          format: date
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Not a tenant
+  /api/tickets/tenant/my-tickets:
+    get:
+      summary: Get tenant's own tickets (tenant only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, in_progress, resolved, closed, all]
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of tenant's tickets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tickets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        status:
+                          type: string
+                          enum: [open, in_progress, resolved, closed]
+                        priority:
+                          type: string
+                          enum: [low, medium, high]
+                        category:
+                          type: string
+                          enum: [technical, payment, maintenance, complaint, security, plumbing, other]
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Not a tenant
+  /api/payments/tenant/my-payments:
+    get:
+      summary: Get tenant's own payment history (tenant only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, completed, failed, refunded, all]
+            default: all
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [rent, deposit, maintenance, other, all]
+            default: all
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of tenant's payments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        amount:
+                          type: number
+                        type:
+                          type: string
+                          enum: [rent, deposit, maintenance, other]
+                        status:
+                          type: string
+                          enum: [pending, completed, failed, refunded]
+                        method:
+                          type: string
+                          enum: [cash, card, online, bank_transfer, check]
+                        date:
+                          type: string
+                          format: date
+                        dueDate:
+                          type: string
+                          format: date
+                        notes:
+                          type: string
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Not a tenant
+  /api/vacating-requests:
+    get:
+      summary: Get all vacating requests (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, approved, rejected, completed, all]
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of vacating requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requests:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        tenant:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                            email:
+                              type: string
+                            room:
+                              type: object
+                              properties:
+                                number:
+                                  type: string
+                        vacatingDate:
+                          type: string
+                          format: date
+                        reason:
+                          type: string
+                        additionalNotes:
+                          type: string
+                        status:
+                          type: string
+                          enum: [pending, approved, rejected, completed]
+                        approvedBy:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            name:
+                              type: string
+                        approvedAt:
+                          type: string
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+    post:
+      summary: Create a new vacating request (tenant only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - vacatingDate
+                - reason
+              properties:
+                vacatingDate:
+                  type: string
+                  format: date
+                  description: Date when tenant plans to vacate
+                reason:
+                  type: string
+                  enum: [job-relocation, education-completed, personal-reasons, financial-issues, health-issues, found-alternative, other]
+                  description: Reason for vacating
+                additionalNotes:
+                  type: string
+                  description: Additional information or notes
+      responses:
+        '201':
+          description: Vacating request created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      tenant:
+                        type: string
+                      vacatingDate:
+                        type: string
+                        format: date
+                      reason:
+                        type: string
+                      additionalNotes:
+                        type: string
+                      status:
+                        type: string
+                        enum: [pending]
+                      createdAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Invalid data or duplicate request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Tenant access required
+  /api/vacating-requests/{id}/approve:
+    put:
+      summary: Approve a vacating request (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Vacating request ID
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+                  description: Optional approval notes
+      responses:
+        '200':
+          description: Vacating request approved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      status:
+                        type: string
+                        enum: [approved]
+                      approvedBy:
+                        type: string
+                      approvedAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Request already processed
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+        '404':
+          description: Vacating request not found
+  /api/vacating-requests/{id}/reject:
+    put:
+      summary: Reject a vacating request (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Vacating request ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reason
+              properties:
+                reason:
+                  type: string
+                  description: Reason for rejection
+                notes:
+                  type: string
+                  description: Additional rejection notes
+      responses:
+        '200':
+          description: Vacating request rejected successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      status:
+                        type: string
+                        enum: [rejected]
+                      approvedBy:
+                        type: string
+                      approvedAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Request already processed or missing reason
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+        '404':
+          description: Vacating request not found
+  /api/exchange-requests:
+    get:
+      summary: Get all exchange requests (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, approved, rejected, completed, all]
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of exchange requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requests:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        tenant:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                            email:
+                              type: string
+                            room:
+                              type: object
+                              properties:
+                                number:
+                                  type: string
+                        currentRoom:
+                          type: string
+                        desiredRoom:
+                          type: string
+                        reason:
+                          type: string
+                        preferredDate:
+                          type: string
+                          format: date
+                        additionalNotes:
+                          type: string
+                        status:
+                          type: string
+                          enum: [pending, approved, rejected, completed]
+                        approvedBy:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            name:
+                              type: string
+                        approvedAt:
+                          type: string
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+    post:
+      summary: Create a new exchange request (tenant only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currentRoom
+                - desiredRoom
+                - reason
+                - preferredDate
+              properties:
+                currentRoom:
+                  type: string
+                  description: Current room number
+                desiredRoom:
+                  type: string
+                  description: Desired room number
+                reason:
+                  type: string
+                  enum: [roommate-compatibility, noise-issues, room-condition, location-preference, medical-reasons, academic-needs, other]
+                  description: Reason for room exchange
+                preferredDate:
+                  type: string
+                  format: date
+                  description: Preferred exchange date
+                additionalNotes:
+                  type: string
+                  description: Additional information or notes
+      responses:
+        '201':
+          description: Exchange request created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      tenant:
+                        type: string
+                      currentRoom:
+                        type: string
+                      desiredRoom:
+                        type: string
+                      reason:
+                        type: string
+                      preferredDate:
+                        type: string
+                        format: date
+                      additionalNotes:
+                        type: string
+                      status:
+                        type: string
+                        enum: [pending]
+                      createdAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Invalid data or room capacity issues
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Tenant access required
+  /api/exchange-requests/{id}/approve:
+    put:
+      summary: Approve an exchange request (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Exchange request ID
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+                  description: Optional approval notes
+      responses:
+        '200':
+          description: Exchange request approved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      status:
+                        type: string
+                        enum: [approved]
+                      approvedBy:
+                        type: string
+                      approvedAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Request already processed or room capacity issues
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+        '404':
+          description: Exchange request not found
+  /api/exchange-requests/{id}/reject:
+    put:
+      summary: Reject an exchange request (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Exchange request ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reason
+              properties:
+                reason:
+                  type: string
+                  description: Reason for rejection
+                notes:
+                  type: string
+                  description: Additional rejection notes
+      responses:
+        '200':
+          description: Exchange request rejected successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  request:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      status:
+                        type: string
+                        enum: [rejected]
+                      approvedBy:
+                        type: string
+                      approvedAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request - Request already processed or missing reason
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Admin access required
+        '404':
+          description: Exchange request not found
