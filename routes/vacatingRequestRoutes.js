@@ -15,8 +15,6 @@ const router = express.Router();
 router.get("/", protect, adminOnly, getVacatingRequests);
 router.get("/:id", protect, adminOnly, getVacatingRequest);
 router.put("/:id", protect, adminOnly, updateVacatingRequest);
-router.put("/:id/approve", protect, adminOnly, updateVacatingRequest);
-router.put("/:id/reject", protect, adminOnly, updateVacatingRequest);
 router.delete("/:id", protect, adminOnly, deleteVacatingRequest);
 
 // Tenant routes

@@ -7,11 +7,9 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, enum: ["admin", "staff", "tenant"], default: "tenant" },
     phone: { type: String, required: true },
-    isFirstLogin: { type: Boolean, default: true }, // Track first time login
     propertyId: { type: mongoose.Schema.Types.ObjectId, ref: "Property" },
     tenantId: { type: mongoose.Schema.Types.ObjectId, ref: "Tenant" }, // For tenant role users
     settings: {
-      theme: { type: String, enum: ["light", "dark", "system"], default: "light" },
       notifications: {
         emailNotifications: {
           newTenants: { type: Boolean, default: true },

@@ -1,7 +1,5 @@
 import Tenant from "../models/Tenant.js";
 import Room from "../models/Room.js";
-import User from "../models/User.js";
-import bcrypt from "bcryptjs";
 
 export const getTenants = async (req, res) => {
   try {
@@ -25,7 +23,6 @@ export const getTenants = async (req, res) => {
 
     const tenants = await Tenant.find(query)
       .populate("room")
-      .populate("userId", "name email phone role")
       .sort({ createdAt: -1 })
       .limit(limit * 1)
       .skip((page - 1) * limit);
@@ -45,9 +42,7 @@ export const getTenants = async (req, res) => {
 
 export const getTenant = async (req, res) => {
   try {
-    const tenant = await Tenant.findById(req.params.id)
-      .populate("room")
-      .populate("userId", "name email phone role");
+    const tenant = await Tenant.findById(req.params.id).populate("room");
     if (!tenant) return res.status(404).json({ message: "Tenant not found" });
     res.json(tenant);
   } catch (error) {
@@ -68,33 +63,10 @@ export const addTenant = async (req, res) => {
       emergencyContactName,
       emergencyContactRelationship,
       emergencyContactPhone,
-      securityDeposit,
-      password // Optional: if not provided, generate a default password
+      securityDeposit
     } = req.body;
 
-    // Check if user with this email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User with this email already exists" });
-    }
-
-    // Generate default password if not provided
-    const defaultPassword = password || "password123";
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(defaultPassword, salt);
-
-    // Create User account first
-    const user = await User.create({
-      name: `${firstName} ${lastName || ''}`.trim(),
-      email,
-      phone,
-      password: hashedPassword,
-      role: "tenant"
-    });
-
-    // Create Tenant record linked to User
     const tenant = await Tenant.create({
-      userId: user._id,
       firstName,
       lastName,
       email,
@@ -108,22 +80,12 @@ export const addTenant = async (req, res) => {
       securityDeposit
     });
 
-    // Update User with tenantId reference
-    await User.findByIdAndUpdate(user._id, { tenantId: tenant._id });
-
-    // Update room occupancy if room is assigned
     if (roomId) {
       await Room.findByIdAndUpdate(roomId, { $inc: { occupancy: 1 } });
     }
 
-    const populatedTenant = await Tenant.findById(tenant._id)
-      .populate("room")
-      .populate("userId", "name email phone role");
-
-    res.status(201).json({
-      ...populatedTenant.toObject(),
-      generatedPassword: password ? undefined : defaultPassword // Only return generated password if it was auto-generated
-    });
+    const populatedTenant = await Tenant.findById(tenant._id).populate("room");
+    res.status(201).json(populatedTenant);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -131,21 +93,8 @@ export const addTenant = async (req, res) => {
 
 export const updateTenant = async (req, res) => {
   try {
-    const tenant = await Tenant.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .populate("room")
-      .populate("userId", "name email phone role");
+    const tenant = await Tenant.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate("room");
     if (!tenant) return res.status(404).json({ message: "Tenant not found" });
-
-    // If email is being updated, also update the linked User account
-    if (req.body.email && tenant.userId) {
-      await User.findByIdAndUpdate(tenant.userId._id, { email: req.body.email });
-    }
-
-    // If phone is being updated, also update the linked User account
-    if (req.body.phone && tenant.userId) {
-      await User.findByIdAndUpdate(tenant.userId._id, { phone: req.body.phone });
-    }
-
     res.json(tenant);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -157,19 +106,12 @@ export const deleteTenant = async (req, res) => {
     const tenant = await Tenant.findById(req.params.id);
     if (!tenant) return res.status(404).json({ message: "Tenant not found" });
 
-    // Delete associated User account
-    if (tenant.userId) {
-      await User.findByIdAndDelete(tenant.userId);
-    }
-
-    // Update room occupancy
     if (tenant.room) {
       await Room.findByIdAndUpdate(tenant.room, { $inc: { occupancy: -1 } });
     }
 
-    // Delete tenant record
-    await Tenant.findByIdAndDelete(req.params.id);
-    res.json({ message: "Tenant and associated user account removed successfully" });
+    await tenant.remove();
+    res.json({ message: "Tenant removed" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -199,22 +141,10 @@ export const getTenantStats = async (req, res) => {
 
 export const getTenantDashboard = async (req, res) => {
   try {
-    // For tenant users, get tenantId from their User record
-    // For admin/staff, tenantId comes from params
-    let tenantId = req.params.tenantId;
+    const tenantId = req.user.role === 'tenant' ? req.user.tenantId : req.params.tenantId;
 
-    if (req.user.role === 'tenant') {
-      tenantId = req.user.tenantId;
-    }
-
-    if (!tenantId) {
-      return res.status(400).json({ message: "Tenant ID not found" });
-    }
-
-    // Get tenant info with user details
-    const tenant = await Tenant.findById(tenantId)
-      .populate("room")
-      .populate("userId", "name email phone role isFirstLogin");
+    // Get tenant info
+    const tenant = await Tenant.findById(tenantId).populate("room");
     if (!tenant) return res.status(404).json({ message: "Tenant not found" });
 
     // Get recent payments (last 5)
@@ -242,94 +172,98 @@ export const getTenantDashboard = async (req, res) => {
     }).sort({ paidAt: -1 });
 
     let dueDate = new Date(currentYear, currentMonth + 1, 1); // 1st of next month
-    let currentRent = tenant.room?.rent || 0;
+    let currentRent = 0;
 
     if (lastPayment) {
       const lastPaymentDate = new Date(lastPayment.paidAt);
       dueDate = new Date(lastPaymentDate.getFullYear(), lastPaymentDate.getMonth() + 1, lastPaymentDate.getDate());
+      currentRent = lastPayment.amount; // Assuming rent amount is consistent
     }
 
     // Get active issues (open tickets)
     const activeIssues = activeTickets.length;
 
     res.json({
-      userName: `${tenant.firstName} ${tenant.lastName || ''}`.trim(),
+      userName: `${tenant.firstName} ${tenant.lastName}`,
       currentRent,
       dueDate,
       activeIssues,
-      roomNumber: tenant.room ? tenant.room.number : null,
+      roomNumber: tenant.room ? tenant.room.roomNumber : null,
       recentInvoices: recentPayments,
-      activeTickets,
-      userDetails: tenant.userId, // Include user account details
-      tenantDetails: tenant // Include full tenant details
+      activeTickets
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const onboardTenant = async (req, res) => {
+export const sendSMSToTenants = async (req, res) => {
   try {
-    const {
-      aadharNumber,
-      room,
-      moveInDate,
-      emergencyContactName,
-      emergencyContactRelationship,
-      emergencyContactPhone,
-      securityDeposit,
-      currentRent,
-      dueDate
-    } = req.body;
+    const { tenantIds, message } = req.body;
 
-    // Get tenant ID from authenticated user
-    const tenantId = req.user.tenantId;
-    if (!tenantId) {
-      return res.status(400).json({ message: "Tenant ID not found. Please contact administrator." });
+    if (!tenantIds || !Array.isArray(tenantIds) || tenantIds.length === 0) {
+      return res.status(400).json({ message: "Tenant IDs array is required" });
     }
 
-    // Update tenant record with onboarding information
-    const updatedTenant = await Tenant.findByIdAndUpdate(
-      tenantId,
-      {
-        aadharNumber,
-        room,
-        moveInDate,
-        emergencyContactName,
-        emergencyContactRelationship,
-        emergencyContactPhone,
-        securityDeposit,
-        active: true // Mark as active after onboarding
-      },
-      { new: true }
-    ).populate('room');
-
-    if (!updatedTenant) {
-      return res.status(404).json({ message: "Tenant not found" });
+    if (!message || typeof message !== 'string' || message.trim() === '') {
+      return res.status(400).json({ message: "Message is required" });
     }
 
-    // Update room occupancy
-    if (room) {
-      await Room.findByIdAndUpdate(room, { $inc: { occupancy: 1 } });
+    const tenants = await Tenant.find({ _id: { $in: tenantIds } }).select('firstName lastName phone');
+
+    if (tenants.length === 0) {
+      return res.status(404).json({ message: "No tenants found" });
     }
 
-    // Create initial payment record for rent setup
-    const Payment = (await import("../models/Payment.js")).default;
-    await Payment.create({
-      tenant: tenantId,
-      amount: currentRent,
-      type: 'rent',
-      status: 'pending',
-      dueDate: new Date(dueDate),
-      description: 'Monthly rent'
-    });
+    const { sendSMS } = await import("../utils/sendSMS.js");
+
+    const results = [];
+    for (const tenant of tenants) {
+      const fullMessage = `Hello ${tenant.firstName} ${tenant.lastName}, ${message}`;
+      const result = await sendSMS(tenant.phone, fullMessage, 'admin-notification');
+      results.push({
+        tenantId: tenant._id,
+        name: `${tenant.firstName} ${tenant.lastName}`,
+        phone: tenant.phone,
+        success: result.success,
+        error: result.error || null
+      });
+    }
+
+    const successCount = results.filter(r => r.success).length;
+    const failureCount = results.length - successCount;
 
     res.json({
-      message: "Onboarding completed successfully",
-      tenant: updatedTenant
+      message: `SMS sent to ${successCount} tenants, ${failureCount} failed`,
+      results
     });
   } catch (error) {
-    console.error('Onboarding error:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const sendManualSMS = async (req, res) => {
+  try {
+    const { phone, message } = req.body;
+
+    if (!phone || typeof phone !== 'string' || phone.trim() === '') {
+      return res.status(400).json({ message: "Phone number is required" });
+    }
+
+    if (!message || typeof message !== 'string' || message.trim() === '') {
+      return res.status(400).json({ message: "Message is required" });
+    }
+
+    const { sendSMS } = await import("../utils/sendSMS.js");
+
+    const result = await sendSMS(phone.trim(), message.trim(), 'manual');
+
+    if (result.success) {
+      res.json({ message: "SMS sent successfully", sid: result.sid });
+    } else {
+      res.status(500).json({ message: result.error });
+    }
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };

@@ -12,10 +12,6 @@ import rentRoutes from "./routes/rentRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
 import vacatingRequestRoutes from "./routes/vacatingRequestRoutes.js";
 import exchangeRequestRoutes from "./routes/exchangeRequestRoutes.js";
-import feeBreakdownRoutes from "./routes/feeBreakdownRoutes.js";
-import menuRoutes from "./routes/menuRoutes.js";
-import timetableRoutes from "./routes/timetableRoutes.js";
-import roomCategoryRoutes from "./routes/roomCategoryRoutes.js";
 import setupSwagger from './swagger.js';
 
 dotenv.config();
@@ -42,10 +38,6 @@ app.use("/api/rent", rentRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/vacating-requests", vacatingRequestRoutes);
 app.use("/api/exchange-requests", exchangeRequestRoutes);
-app.use("/api/fee-breakdown", feeBreakdownRoutes);
-app.use("/api/menu", menuRoutes);
-app.use("/api/timetable", timetableRoutes);
-app.use("/api/room-category", roomCategoryRoutes);
 
 // Swagger UI
 setupSwagger(app);

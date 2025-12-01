@@ -1,8 +1,8 @@
 {
-  "name": "hostel-management-backend",
+  "name": "rootnspace-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Backend for Hostel Management System - Express + MongoDB + Mongoose",
+  "description": "Backend for RootnSpace - Express + MongoDB + Mongoose",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

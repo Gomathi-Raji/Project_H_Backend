@@ -7,7 +7,8 @@ import {
   deleteTenant,
   getTenantStats,
   getTenantDashboard,
-  onboardTenant,
+  sendSMSToTenants,
+  sendManualSMS,
 } from "../controllers/tenantController.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
@@ -24,7 +25,10 @@ router.delete("/:id", protect, adminOnly, deleteTenant);
 // Tenant dashboard endpoint
 router.get("/dashboard/my-info", protect, getTenantDashboard);
 
-// Tenant onboarding endpoint
-router.post("/onboard", protect, onboardTenant);
+// Send SMS to selected tenants
+router.post("/send-sms", protect, adminOnly, sendSMSToTenants);
+
+// Send manual SMS to any number
+router.post("/send-manual-sms", protect, adminOnly, sendManualSMS);
 
 export default router;

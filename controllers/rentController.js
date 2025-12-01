@@ -155,7 +155,7 @@ export const seedMockData = async (req, res) => {
         email: "mockjohn@example.com",
         phone: "+1234567890",
         password: hashedPassword,
-        role: "tenant",
+        role: "user",
         propertyId: properties[0]._id
       },
       {
@@ -163,7 +163,7 @@ export const seedMockData = async (req, res) => {
         email: "mockjane@example.com",
         phone: "+1234567891",
         password: hashedPassword,
-        role: "tenant",
+        role: "user",
         propertyId: properties[1]._id
       },
       {
@@ -171,7 +171,7 @@ export const seedMockData = async (req, res) => {
         email: "mockbob@example.com",
         phone: "+1234567892",
         password: hashedPassword,
-        role: "tenant",
+        role: "user",
         propertyId: properties[2]._id
       },
       {
@@ -179,7 +179,7 @@ export const seedMockData = async (req, res) => {
         email: "mockalice@example.com",
         phone: "+1234567893",
         password: hashedPassword,
-        role: "tenant",
+        role: "user",
         propertyId: properties[0]._id
       },
       {
@@ -187,7 +187,7 @@ export const seedMockData = async (req, res) => {
         email: "mockcharlie@example.com",
         phone: "+1234567894",
         password: hashedPassword,
-        role: "tenant",
+        role: "user",
         propertyId: properties[1]._id
       }
     ]);

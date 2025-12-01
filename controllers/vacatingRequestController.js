@@ -12,14 +12,7 @@ export const getVacatingRequests = async (req, res) => {
     }
 
     const requests = await VacatingRequest.find(query)
-      .populate({
-        path: "tenant",
-        select: "firstName lastName email phone",
-        populate: {
-          path: "room",
-          select: "number"
-        }
-      })
+      .populate("tenant", "firstName lastName email phone")
       .populate("approvedBy", "name email")
       .sort({ createdAt: -1 })
       .limit(limit * 1)
@@ -100,30 +93,8 @@ export const addVacatingRequest = async (req, res) => {
 
 export const updateVacatingRequest = async (req, res) => {
   try {
-    const { id } = req.params;
-    const action = req.route.path.split('/').pop(); // approve, reject, or empty for general update
-    let updateData = { ...req.body };
-
-    // Handle approve/reject actions
-    if (action === 'approve') {
-      updateData.status = 'approved';
-      updateData.approvedBy = req.user._id;
-      updateData.approvalDate = new Date();
-    } else if (action === 'reject') {
-      updateData.status = 'rejected';
-      updateData.approvedBy = req.user._id;
-      updateData.approvalDate = new Date();
-    }
-
-    const request = await VacatingRequest.findByIdAndUpdate(id, updateData, { new: true })
-      .populate({
-        path: "tenant",
-        select: "firstName lastName email phone",
-        populate: {
-          path: "room",
-          select: "number"
-        }
-      })
+    const request = await VacatingRequest.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .populate("tenant", "firstName lastName email phone")
       .populate("approvedBy", "name email");
     if (!request) return res.status(404).json({ message: "Vacating request not found" });
     res.json(request);

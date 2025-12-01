@@ -14,8 +14,8 @@ export const getExchangeRequests = async (req, res) => {
 
     const requests = await ExchangeRequest.find(query)
       .populate("tenant", "firstName lastName email phone")
-      .populate("currentRoom", "number")
-      .populate("desiredRoom", "number")
+      .populate("currentRoom", "roomNumber floor capacity")
+      .populate("desiredRoom", "roomNumber floor capacity")
       .populate("approvedBy", "name email")
       .sort({ createdAt: -1 })
       .limit(limit * 1)
@@ -38,8 +38,8 @@ export const getExchangeRequest = async (req, res) => {
   try {
     const request = await ExchangeRequest.findById(req.params.id)
       .populate("tenant", "firstName lastName email phone")
-      .populate("currentRoom", "number")
-      .populate("desiredRoom", "number")
+      .populate("currentRoom", "roomNumber floor capacity")
+      .populate("desiredRoom", "roomNumber floor capacity")
       .populate("approvedBy", "name email");
     if (!request) return res.status(404).json({ message: "Exchange request not found" });
     res.json(request);
@@ -52,8 +52,8 @@ export const getTenantExchangeRequests = async (req, res) => {
   try {
     const tenantId = req.user.role === 'tenant' ? req.user.tenantId : req.params.tenantId;
     const requests = await ExchangeRequest.find({ tenant: tenantId })
-      .populate("currentRoom", "number")
-      .populate("desiredRoom", "number")
+      .populate("currentRoom", "roomNumber floor capacity")
+      .populate("desiredRoom", "roomNumber floor capacity")
       .populate("approvedBy", "name email")
       .sort({ createdAt: -1 });
 
@@ -105,8 +105,8 @@ export const addExchangeRequest = async (req, res) => {
 
     const populatedRequest = await ExchangeRequest.findById(request._id)
       .populate("tenant", "firstName lastName email phone")
-      .populate("currentRoom", "number")
-      .populate("desiredRoom", "number");
+      .populate("currentRoom", "roomNumber floor capacity")
+      .populate("desiredRoom", "roomNumber floor capacity");
 
     res.status(201).json(populatedRequest);
   } catch (error) {
@@ -116,25 +116,10 @@ export const addExchangeRequest = async (req, res) => {
 
 export const updateExchangeRequest = async (req, res) => {
   try {
-    const { id } = req.params;
-    const action = req.route.path.split('/').pop(); // approve, reject, or empty for general update
-    let updateData = { ...req.body };
-
-    // Handle approve/reject actions
-    if (action === 'approve') {
-      updateData.status = 'approved';
-      updateData.approvedBy = req.user._id;
-      updateData.approvalDate = new Date();
-    } else if (action === 'reject') {
-      updateData.status = 'rejected';
-      updateData.approvedBy = req.user._id;
-      updateData.approvalDate = new Date();
-    }
-
-    const request = await ExchangeRequest.findByIdAndUpdate(id, updateData, { new: true })
+    const request = await ExchangeRequest.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .populate("tenant", "firstName lastName email phone")
-      .populate("currentRoom", "number")
-      .populate("desiredRoom", "number")
+      .populate("currentRoom", "roomNumber floor capacity")
+      .populate("desiredRoom", "roomNumber floor capacity")
       .populate("approvedBy", "name email");
     if (!request) return res.status(404).json({ message: "Exchange request not found" });
     res.json(request);

@@ -67,8 +67,7 @@ const populateMockData = async () => {
     const createdRooms = await Room.insertMany(rooms);
     console.log('Created rooms:', createdRooms.length);
 
-    // Create Tenants (5 tenants) - now with userId references
-    const tenantUsers = createdUsers.filter(u => u.role === 'tenant');
+    // Create Tenants (5 tenants)
     const tenants = [
       {
         firstName: 'John',
@@ -77,7 +76,6 @@ const populateMockData = async () => {
         phone: '3234567890',
         aadharNumber: '123456789012',
         room: createdRooms[0]._id,
-        userId: tenantUsers[0]._id,
         moveInDate: new Date('2024-01-15'),
         emergencyContactName: 'Mary Doe',
         emergencyContactRelationship: 'Sister',
@@ -92,7 +90,6 @@ const populateMockData = async () => {
         phone: '3234567891',
         aadharNumber: '123456789013',
         room: createdRooms[1]._id,
-        userId: tenantUsers[1]._id,
         moveInDate: new Date('2024-02-01'),
         emergencyContactName: 'Tom Smith',
         emergencyContactRelationship: 'Brother',
@@ -107,7 +104,6 @@ const populateMockData = async () => {
         phone: '3234567892',
         aadharNumber: '123456789014',
         room: createdRooms[2]._id,
-        userId: tenantUsers[2]._id,
         moveInDate: new Date('2024-03-10'),
         emergencyContactName: 'Lisa Johnson',
         emergencyContactRelationship: 'Wife',
@@ -122,7 +118,6 @@ const populateMockData = async () => {
         phone: '3234567893',
         aadharNumber: '123456789015',
         room: createdRooms[3]._id,
-        userId: tenantUsers[3]._id,
         moveInDate: new Date('2024-04-05'),
         emergencyContactName: 'Mike Brown',
         emergencyContactRelationship: 'Father',
@@ -137,7 +132,6 @@ const populateMockData = async () => {
         phone: '3234567894',
         aadharNumber: '123456789016',
         room: createdRooms[4]._id,
-        userId: tenantUsers[4]._id,
         moveInDate: new Date('2024-05-20'),
         emergencyContactName: 'Sarah Wilson',
         emergencyContactRelationship: 'Mother',
@@ -151,6 +145,7 @@ const populateMockData = async () => {
     console.log('Created tenants:', createdTenants.length);
 
     // Update user tenantId references
+    const tenantUsers = createdUsers.filter(u => u.role === 'tenant');
     for (let i = 0; i < tenantUsers.length; i++) {
       await User.findByIdAndUpdate(tenantUsers[i]._id, { tenantId: createdTenants[i]._id });
     }

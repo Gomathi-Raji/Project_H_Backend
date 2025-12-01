@@ -15,8 +15,6 @@ const router = express.Router();
 router.get("/", protect, adminOnly, getExchangeRequests);
 router.get("/:id", protect, adminOnly, getExchangeRequest);
 router.put("/:id", protect, adminOnly, updateExchangeRequest);
-router.put("/:id/approve", protect, adminOnly, updateExchangeRequest);
-router.put("/:id/reject", protect, adminOnly, updateExchangeRequest);
 router.delete("/:id", protect, adminOnly, deleteExchangeRequest);
 
 // Tenant routes
