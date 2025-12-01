@@ -1,0 +1,199 @@
+{
+  "tabs": {
+    "user": "User",
+    "admin": "Admin"
+  },
+  "heading": {
+    "loginAs": "Login as {{role}}"
+  },
+  "subtext": {
+    "accessAccount": "Access your account",
+    "accessAdmin": "Access admin panel"
+  },
+  "label": {
+    "email": "Email",
+    "password": "Password"
+  },
+  "placeholder": {
+    "email": "Your Email Address",
+    "password": "Enter your password"
+  },
+  "link": {
+    "forgotPassword": "Forgot Password?",
+    "signUp": "Sign Up"
+  },
+  "button": {
+    "loginAs": "Login as {{role}}"
+  },
+  "helper": {
+    "dontHaveAccount": "Don't have an account?"
+  }
+  ,
+  "navbar": {
+    "logoTitle": "Hostel Management",
+    "home": "Home",
+    "invoices": "Invoices",
+    "tickets": "Tickets",
+    "forms": {
+      "label": "Forms",
+      "vacatingForm": "Vacating Form",
+      "exchangeForm": "Exchange Form"
+    },
+    "profile": "Profile",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
+    }
+  },
+  "admin": {
+    "panelTitle": "Admin Panel",
+    "managementSystem": "Management System",
+    "managementSystemShort": "Management",
+    "searchPlaceholder": "Search tenants, rooms...",
+    "loggedInAs": "Logged in as",
+    "profile": {
+      "title": "Property Admin",
+      "role": "Administrator",
+      "viewProfile": "View Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "menu": {
+      "dashboard": "Dashboard",
+      "tenantManagement": "Tenant Management",
+      "paymentTracking": "Payment Tracking",
+      "tickets": "Tickets",
+      "formRequests": "Form Requests",
+      "expensesManagement": "Expenses Management",
+      "expensesLine1": "Expenses",
+      "expensesLine2": "Management",
+      "staffPayroll": "Staff & Payroll",
+      "roomOccupancy": "Room Occupancy",
+      "reportsAnalytics": "Reports & Analytics",
+      "settings": "Settings"
+    }
+  },
+  "tickets": {
+    "title": "Support Tickets",
+    "noTickets": "No tickets found.",
+    "errorLoading": "Error loading tickets",
+    "refresh": "Refresh",
+    "subtitle": "Manage your support requests and issues",
+    "raiseNew": "Raise New Ticket",
+    "noTicketsHelp": "Create your first support ticket by clicking the \"Raise New Ticket\" button.",
+    "stats": {
+      "total": "Total Tickets",
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved"
+    },
+    "loading": "Loading tickets..."
+  }
+  ,
+  "register": {
+    "title": "Create Account",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "role": "Role",
+    "roleOptions": { "tenant": "Tenant", "staff": "Staff", "admin": "Admin" },
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "placeholders": {
+      "name": "Enter your name",
+      "email": "Enter your email",
+      "phone": "Enter your phone number",
+      "password": "Enter your password",
+      "confirmPassword": "Confirm your password"
+    },
+    "signup": "Sign Up",
+    "haveAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "raiseTicket": {
+    "heading": "Raise New Ticket",
+    "titleLabel": "Title",
+    "categoryLabel": "Category",
+    "priorityLabel": "Priority",
+    "descriptionLabel": "Description",
+    "placeholder": {
+      "title": "Brief description of the issue",
+      "description": "Provide detailed information about the issue"
+    },
+    "create": "Create Ticket",
+    "cancel": "Cancel",
+    "categories": {
+      "technical": "Technical Issue",
+      "payment": "Payment Issue",
+      "maintenance": "Maintenance",
+      "complaint": "Complaint",
+      "security": "Security",
+      "plumbing": "Plumbing",
+      "other": "Other"
+    },
+    "priorities": { "low": "Low", "medium": "Medium", "high": "High" }
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Enter your registered email or mobile number. We'll send you a password reset link.",
+    "success": "Password reset link sent to your email!",
+    "emailLabel": "Email / Mobile Number",
+    "placeholder": "Enter your email or phone number",
+    "send": "Send Reset Link"
+  }
+  ,
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account preferences",
+    "tabs": {
+      "profile": "Profile",
+      "password": "Password",
+      "theme": "Theme",
+      "notifications": "Notifications"
+    },
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "success": {
+      "profile": "Profile updated successfully!",
+      "password": "Password changed successfully!",
+      "notifications": "Notification settings updated successfully!",
+      "theme": "Theme preference updated successfully!"
+    },
+    "error": "Error"
+  },
+  "tenantManagement": {
+    "title": "Tenant Management",
+    "subtitle": "Manage your hostel tenants",
+    "export": "Export",
+    "addTenant": "Add Tenant",
+    "searchPlaceholder": "Search by Name, Email, or Room",
+    "filterAll": "All Status",
+    "filterActive": "Active",
+    "filterVacated": "Vacated",
+    "loading": "Loading tenants...",
+    "noTenants": "No tenants found.",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "noRoomAssigned": "No room assigned",
+    "moveInDate": "Move-in",
+    "modalTitle": "Add New Tenant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "aadharNumber": "Aadhaar Number",
+    "roomAssignment": "Room Assignment",
+    "moveInDateLabel": "Move-in Date",
+    "selectRoom": "Select Room",
+    "emergencyContact": "Emergency Contact (Optional)",
+    "contactName": "Contact Name",
+    "relationship": "Relationship",
+    "emergencyContactPhone": "Emergency Contact Phone",
+    "securityDeposit": "Security Deposit",
+    "addTenantButton": "Add Tenant",
+    "cancel": "Cancel",
+    "required": "is required",
+    "roomSelectionRequired": "Room selection is required"
+  }
+}

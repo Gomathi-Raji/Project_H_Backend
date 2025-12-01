@@ -1,0 +1,146 @@
+{
+  "tabs": {
+    "user": "ഉപയോക്താവ്",
+    "admin": "അഡ്മിൻ"
+  },
+  "heading": {
+    "loginAs": "{{role}} ആയി ലോഗിൻ ചെയ്യുക"
+  },
+  "subtext": {
+    "accessAccount": "നിങ്ങളുടെ അക്കൗണ്ടിൽ പ്രവേശിക്കുക",
+    "accessAdmin": "അഡ്മിൻ പാനലിൽ പ്രവേശിക്കുക"
+  },
+  "label": {
+    "email": "ഇമെയിൽ",
+    "password": "പാസ്വേഡ്"
+  },
+  "placeholder": {
+    "email": "താങ്കളുടെ ഇമെയിൽ വിലാസം",
+    "password": "താങ്കളുടെ പാസ്‌വേഡ് നൽകുക"
+  },
+  "link": {
+    "forgotPassword": "പാസ്‌വേഡ് മറന്നോ?",
+    "signUp": "സൈൻ അപ്പ്"
+  },
+  "button": {
+    "loginAs": "{{role}} ആയി ലോഗിൻ ചെയ്യുക"
+  },
+  "helper": {
+    "dontHaveAccount": "അക്കൗണ്ട് ഇല്ലേ?"
+  }
+  ,
+  "navbar": {
+    "logoTitle": "ഹോസ്റ്റൽ മാനേജ്‌മെന്റ്",
+    "home": "ഹോം",
+    "invoices": "ഇൻവോയ്സ്",
+    "tickets": "ടിക്കറ്റുകൾ",
+    "forms": {
+      "label": "ഫോർമുകൾ",
+      "vacatingForm": "വിടയ്ക്ക് ഫോർം",
+      "exchangeForm": "എക്സ്ചേഞ്ച് ഫോർം"
+    },
+    "profile": "പ്രൊഫൈൽ",
+    "theme": {
+      "light": "ലൈറ്റ്",
+      "dark": "ഡാർക്ക്"
+    }
+  },
+  "admin": {
+    "panelTitle": "അഡ്മിൻ പാനൽ",
+    "managementSystem": "മാനേജ്‌മെന്റ് സിസ്റ്റം",
+    "managementSystemShort": "മാനേജ്‌മെന്റ്",
+    "searchPlaceholder": "ടെനന്റുകൾ, മുറികൾ søker...",
+    "loggedInAs": "ലോഗിൻ ചെയ്തിരിക്കുന്നു",
+    "profile": {
+      "title": "പ്രോപ്പർട്ടി അഡ്മിൻ",
+      "role": "അഡ്മിനിസ്ട്രേറ്റർ",
+      "viewProfile": "പ്രൊഫൈൽ കാണുക",
+      "settings": "സെറ്റിംഗുകൾ",
+      "logout": "ലോഗൗട്ട്"
+    },
+    "menu": {
+      "dashboard": "ഡാഷ്ബോർഡ്",
+      "tenantManagement": "ടെനന്റ് മാനേജ്‌മെന്റ്",
+      "paymentTracking": "പെയ്മെന്റ് ട്രാക്കിംഗ്",
+      "tickets": "ടിക്കറ്റുകൾ",
+      "formRequests": "ഫോം അഭ്യർഥനകൾ",
+      "expensesManagement": "ചെലവ് മാനേജ്മെന്റ്",
+      "expensesLine1": "ചെലവുകൾ",
+      "expensesLine2": "മാനേജ്മെന്റ്",
+      "staffPayroll": "സ്റ്റാഫ് & പേറോൾ",
+      "roomOccupancy": "റൂം ഓക്കുപൻസി",
+      "reportsAnalytics": "റിപ്പോർട്ടുകളും വിശകലനങ്ങളും",
+      "settings": "സെറ്റിംഗുകൾ"
+    }
+  },
+  "tickets": {
+    "title": "സപ്പോർട്ട് ടിക്കറ്റുകൾ",
+    "noTickets": "ടിക്കറ്റുകൾ കണ്ടെത്താനായില്ല.",
+    "errorLoading": "ടിക്കറ്റുകൾ ലോഡ് ചെയ്യുന്നതിൽ പിശക്",
+    "refresh": "റിഫ്രെഷ്",
+    "subtitle": "നിങ്ങളുടെ സപ്പോർറ് അഭ്യർത്ഥനകളും പ്രശ്നങ്ങളും നിയന്ത്രിക്കുക",
+    "raiseNew": "പുതിയ ടിക്കറ്റ് ഉയര്‍ത്തുക",
+    "noTicketsHelp": "",
+    "stats": {
+      "total": "Total Tickets",
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved"
+    },
+    "loading": "Loading tickets..."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account preferences",
+    "tabs": {
+      "profile": "Profile",
+      "password": "Password",
+      "theme": "Theme",
+      "notifications": "Notifications"
+    },
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "success": {
+      "profile": "Profile updated successfully!",
+      "password": "Password changed successfully!",
+      "notifications": "Notification settings updated successfully!",
+      "theme": "Theme preference updated successfully!"
+    },
+    "error": "Error"
+  },
+  "tenantManagement": {
+    "title": "Tenant Management",
+    "subtitle": "Manage your hostel tenants",
+    "export": "Export",
+    "addTenant": "Add Tenant",
+    "searchPlaceholder": "Search by Name, Email, or Room",
+    "filterAll": "All Status",
+    "filterActive": "Active",
+    "filterVacated": "Vacated",
+    "loading": "Loading tenants...",
+    "noTenants": "No tenants found.",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "noRoomAssigned": "No room assigned",
+    "moveInDate": "Move-in",
+    "modalTitle": "Add New Tenant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "aadharNumber": "Aadhaar Number",
+    "roomAssignment": "Room Assignment",
+    "moveInDateLabel": "Move-in Date",
+    "selectRoom": "Select Room",
+    "emergencyContact": "Emergency Contact (Optional)",
+    "contactName": "Contact Name",
+    "relationship": "Relationship",
+    "emergencyContactPhone": "Emergency Contact Phone",
+    "securityDeposit": "Security Deposit",
+    "addTenantButton": "Add Tenant",
+    "cancel": "Cancel",
+    "required": "is required",
+    "roomSelectionRequired": "Room selection is required"
+  }
+}

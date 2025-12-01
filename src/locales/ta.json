@@ -1,0 +1,193 @@
+{
+  "tabs": {
+    "user": "பயனர்",
+    "admin": "நிர்வாகி"
+  },
+  "heading": {
+    "loginAs": "{{role}} ஆக புகுபதிகை"
+  },
+  "subtext": {
+    "accessAccount": "உங்கள் கணக்கிற்கு அணுகவும்",
+    "accessAdmin": "நிர்வாக பலகைக்குச் செல்லுங்கள்"
+  },
+  "label": {
+    "email": "மின்னஞ்சல்",
+    "password": "கடவுச்சொல்"
+  },
+  "placeholder": {
+    "email": "உங்கள் மின்னஞ்சல் முகவரி",
+    "password": "உங்கள் கடவுச்சொல்லை உள்ளிடவும்"
+  },
+  "link": {
+    "forgotPassword": "கடவுச்சொல் மறக்கப்பட்டதா?",
+    "signUp": "பதிவு"
+  },
+  "button": {
+    "loginAs": "{{role}} ஆக புகுபதிகை"
+  },
+  "helper": {
+    "dontHaveAccount": "கணக்கு இல்லையா?"
+  }
+  ,
+  "navbar": {
+    "logoTitle": "ஹோஸ்டல் மேலாண்மை",
+    "home": "முகப்பு",
+    "invoices": "சில்லறை",
+    "tickets": "டிக்கெட்டுகள்",
+    "forms": {
+      "label": "பட்டைகள்",
+      "vacatingForm": "விடுபட்டு படிவம்",
+      "exchangeForm": "மாற்றம் படிவம்"
+    },
+    "profile": "சுயநிரலை",
+    "theme": {
+      "light": "ஒளி",
+      "dark": "இருள்"
+    }
+  },
+  "admin": {
+    "panelTitle": "நிர்வாகப் பக்கம்",
+    "managementSystem": "மேலாண்மை அமைப்பு",
+    "managementSystemShort": "மேலாண்மை",
+    "searchPlaceholder": "வாடிக்கையாளர்கள், அறைகள் தேடு...",
+    "loggedInAs": "உள்நுழைந்தவர்",
+    "profile": {
+      "title": "சொத்து நிர்வாகி",
+      "role": "நிர்வாகி",
+      "viewProfile": "சுயநிரலை பார்க்கவும்",
+      "settings": "அமைப்புகள்",
+      "logout": "வெளியேறு"
+    },
+    "menu": {
+      "dashboard": "டாஷ்போர்டு",
+      "tenantManagement": "வாடிக்கையாளர் மேலாண்மை",
+      "paymentTracking": "கட்டண கண்காணிப்பு",
+      "tickets": "டிக்கெட்டுகள்",
+      "formRequests": "படிவ கோரிக்கைகள்",
+      "expensesManagement": "செலவு மேலாண்மை",
+      "expensesLine1": "செலவு",
+      "expensesLine2": "மேலாண்மை",
+      "staffPayroll": "பணியாளர் மற்றும் ஊதியம்",
+      "roomOccupancy": " அறை பயன்பாடு",
+      "reportsAnalytics": "அறிக்கைகள் மற்றும் பகுப்பாய்வு",
+      "settings": "அமைப்புகள்"
+    }
+  },
+  "tickets": {
+    "title": "ஆதரவு டிக்கெட்டுகள்",
+    "noTickets": "டிக்கெட்டுகள் கிடைக்கவில்லை.",
+    "errorLoading": "டிக்கெட்டுகளை ஏற்றுவதில் பிழை",
+    "refresh": "புதுப்பிக்கவும்"
+  ,
+    "subtitle": "உங்கள் ஆதரவு கோரிக்கைகள் மற்றும் பிரச்சினைகளை நிர்வகிக்கவும்",
+    "raiseNew": "புதிய டிக்கெட் உயர்த்தவும்",
+    "noTicketsHelp": ""
+  }
+    ,
+    "register": {
+      "title": "கணக்கு உருவாக்கவும்",
+      "name": "பெயர்",
+      "email": "மின்னஞ்சல்",
+      "phone": "தொலைபேசி எண்",
+      "role": "பங்கு",
+      "roleOptions": { "tenant": "வாடிக்கையாளர்", "staff": "செயலாளர்", "admin": "நிர்வாகி" },
+      "password": "கடவுச்சொல்",
+      "confirmPassword": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+      "placeholders": {
+        "name": "உங்கள் பெயரை உள்ளிடவும்",
+        "email": "உங்கள் மின்னஞ்சலை உள்ளிடவும்",
+        "phone": "உங்கள் தொலைபேசி எண்ணை உள்ளிடவும்",
+        "password": "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
+        "confirmPassword": "உங்கள் கடவுச்சொல்லை உறுதிப்படுத்தவும்"
+      },
+      "signup": "பதிவு செய்யவும்",
+      "haveAccount": "முன்னதாக கணக்கு உள்ளதா?",
+      "login": "உள்நுழையவும்"
+    },
+    "raiseTicket": {
+      "heading": "புதிய டிக்கெட் உயர்த்தவும்",
+      "titleLabel": "தலைப்பு",
+      "categoryLabel": "வகை",
+      "priorityLabel": "முக்கியத்துவம்",
+      "descriptionLabel": "விளக்கம்",
+      "placeholder": {
+        "title": "பிரச்சினையின் சுருக்கமான விளக்கம்",
+        "description": "பிரச்சினை பற்றிய விரிவான தகவல்களை வழங்கவும்"
+      },
+      "create": "டிக்கெட் உருவாக்கவும்",
+      "cancel": "ரத்து செய்யவும்",
+      "categories": {
+        "technical": "தொழில்நுட்ப பிரச்சினை",
+        "payment": "கட்டண பிரச்சினை",
+        "maintenance": "பராமரிப்பு",
+        "complaint": "பிரச்சினை",
+        "security": "பாதுகாப்பு",
+        "plumbing": "தண்ணீர் குழாய்ச்சி",
+        "other": "மற்றவை"
+      },
+      "priorities": { "low": "குறைந்த", "medium": "மத்திய", "high": "உயர்" }
+    },
+    "forgotPassword": {
+      "title": "கடவுச்சொல் மறந்துவிட்டேன்",
+      "description": "உங்கள் பதிவு செய்யப்பட்ட மின்னஞ்சல் அல்லது மொபைல் எண்ணை உள்ளிடவும். நாங்கள் உங்களுக்கு ஒரு கடவுச்சொல் மீட்டெடுக்கும் இணைப்பை அனுப்புவோம்.",
+      "success": "கடவுச்சொல் மீட்டெடுக்கும் இணைப்பு உங்கள் மின்னஞ்சலுக்கு அனுப்பப்பட்டது!",
+      "emailLabel": "மின்னஞ்சல் / மொபைல் எண்",
+      "placeholder": "உங்கள் மின்னஞ்சல் அல்லது தொலைபேசி எண்ணை உள்ளிடவும்",
+      "send": "மீட்டெடுக்க இணைப்பை அனுப்பவும்"
+    }
+    ,
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your account preferences",
+      "tabs": {
+        "profile": "Profile",
+        "password": "Password",
+        "theme": "Theme",
+        "notifications": "Notifications"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "update": "Update",
+      "success": {
+        "profile": "Profile updated successfully!",
+        "password": "Password changed successfully!",
+        "notifications": "Notification settings updated successfully!",
+        "theme": "Theme preference updated successfully!"
+      },
+      "error": "Error"
+    },
+  "tenantManagement": {
+    "title": "Tenant Management",
+    "subtitle": "Manage your hostel tenants",
+    "export": "Export",
+    "addTenant": "Add Tenant",
+    "searchPlaceholder": "Search by Name, Email, or Room",
+    "filterAll": "All Status",
+    "filterActive": "Active",
+    "filterVacated": "Vacated",
+    "loading": "Loading tenants...",
+    "noTenants": "No tenants found.",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "noRoomAssigned": "No room assigned",
+    "moveInDate": "Move-in",
+    "modalTitle": "Add New Tenant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "aadharNumber": "Aadhaar Number",
+    "roomAssignment": "Room Assignment",
+    "moveInDateLabel": "Move-in Date",
+    "selectRoom": "Select Room",
+    "emergencyContact": "Emergency Contact (Optional)",
+    "contactName": "Contact Name",
+    "relationship": "Relationship",
+    "emergencyContactPhone": "Emergency Contact Phone",
+    "securityDeposit": "Security Deposit",
+    "addTenantButton": "Add Tenant",
+    "cancel": "Cancel",
+    "required": "is required",
+    "roomSelectionRequired": "Room selection is required"
+  }
+}

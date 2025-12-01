@@ -1,0 +1,141 @@
+{
+  "tabs": {
+    "user": "उपयोगकर्ता",
+    "admin": "प्रशासक"
+  },
+  "heading": {
+    "loginAs": "{{role}} के रूप में लॉगिन"
+  },
+  "subtext": {
+    "accessAccount": "अपने खाते तक पहुँचें",
+    "accessAdmin": "एडमिन पैनल तक पहुँचें"
+  },
+  "label": {
+    "email": "ईमेल",
+    "password": "पासवर्ड"
+  },
+  "placeholder": {
+    "email": "आपका ईमेल पता",
+    "password": "अपना पासवर्ड दर्ज करें"
+  },
+  "link": {
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "signUp": "साइन अप"
+  },
+  "button": {
+    "loginAs": "{{role}} के रूप में लॉगिन"
+  },
+  "helper": {
+    "dontHaveAccount": "खाता नहीं है?"
+  }
+  ,
+  "navbar": {
+    "logoTitle": "हॉस्टल प्रबंधन",
+    "home": "होम",
+    "invoices": "इनवॉइस",
+    "tickets": "टिकट",
+    "forms": {
+      "label": "फार्म",
+      "vacatingForm": "निकासी फॉर्म",
+      "exchangeForm": "बदलाव फॉर्म"
+    },
+    "profile": "प्रोफ़ाइल",
+    "theme": {
+      "light": "लाइट",
+      "dark": "डार्क"
+    }
+  },
+  "admin": {
+    "panelTitle": "एडमिन पैनल",
+    "managementSystem": "प्रबंधन प्रणाली",
+    "managementSystemShort": "प्रबंधन",
+    "searchPlaceholder": "टेनेंट्स, कमरे खोजें...",
+    "loggedInAs": "लॉग इन के रूप में",
+    "profile": {
+      "title": "प्रॉपर्टी एडमिन",
+      "role": "एडमिनिस्ट्रेटर",
+      "viewProfile": "प्रोफ़ाइल देखें",
+      "settings": "सेटिंग्स",
+      "logout": "लॉग आउट"
+    },
+    "menu": {
+      "dashboard": "डैशबोर्ड",
+      "tenantManagement": "किरायेदार प्रबंधन",
+      "paymentTracking": "भुगतान ट्रैकिंग",
+      "tickets": "टिकट",
+      "formRequests": "फॉर्म अनुरोध",
+      "expensesManagement": "खर्च प्रबंधन",
+      "expensesLine1": "खर्च",
+      "expensesLine2": "प्रबंधन",
+      "staffPayroll": "स्टाफ और पेरोल",
+      "roomOccupancy": "कमरे की अधिभोग",
+      "reportsAnalytics": "रिपोर्ट और विश्लेषण",
+      "settings": "सेटिंग्स"
+    }
+  },
+  "tickets": {
+    "title": "सपोर्ट टिकट",
+    "noTickets": "कोई टिकट नहीं मिला।",
+    "errorLoading": "टिकट लोड करने में त्रुटि",
+    "refresh": "ताज़ा करें"
+  ,
+    "subtitle": "अपने सपोर्ट अनुरोधों और मुद्दों का प्रबंधन करें",
+    "raiseNew": "नया टिकट उठाएँ",
+    "noTicketsHelp": ""
+  }
+  ,
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account preferences",
+    "tabs": {
+      "profile": "Profile",
+      "password": "Password",
+      "theme": "Theme",
+      "notifications": "Notifications"
+    },
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "success": {
+      "profile": "Profile updated successfully!",
+      "password": "Password changed successfully!",
+      "notifications": "Notification settings updated successfully!",
+      "theme": "Theme preference updated successfully!"
+    },
+    "error": "Error"
+  },
+  "tenantManagement": {
+    "title": "Tenant Management",
+    "subtitle": "Manage your hostel tenants",
+    "export": "Export",
+    "addTenant": "Add Tenant",
+    "searchPlaceholder": "Search by Name, Email, or Room",
+    "filterAll": "All Status",
+    "filterActive": "Active",
+    "filterVacated": "Vacated",
+    "loading": "Loading tenants...",
+    "noTenants": "No tenants found.",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "noRoomAssigned": "No room assigned",
+    "moveInDate": "Move-in",
+    "modalTitle": "Add New Tenant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "aadharNumber": "Aadhaar Number",
+    "roomAssignment": "Room Assignment",
+    "moveInDateLabel": "Move-in Date",
+    "selectRoom": "Select Room",
+    "emergencyContact": "Emergency Contact (Optional)",
+    "contactName": "Contact Name",
+    "relationship": "Relationship",
+    "emergencyContactPhone": "Emergency Contact Phone",
+    "securityDeposit": "Security Deposit",
+    "addTenantButton": "Add Tenant",
+    "cancel": "Cancel",
+    "required": "is required",
+    "roomSelectionRequired": "Room selection is required"
+  }
+}

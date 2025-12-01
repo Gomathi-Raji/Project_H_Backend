@@ -1,0 +1,141 @@
+{
+  "tabs": {
+    "user": "యూజర్",
+    "admin": "అడ్మిన్"
+  },
+  "heading": {
+    "loginAs": "{{role}} గా లాగిన్ చేయండి"
+  },
+  "subtext": {
+    "accessAccount": "మీ ఖాతాకు ప్రవేశించండి",
+    "accessAdmin": "అడ్మిన్ ప్యానెల్‌కు ప్రవేశించండి"
+  },
+  "label": {
+    "email": "ఇమెయిల్",
+    "password": "పాస్వర్డ్"
+  },
+  "placeholder": {
+    "email": "మీ ఇమెయిల్ చిరునామా",
+    "password": "మీ పాస్వర్డ్‌ని నమోదు చేయండి"
+  },
+  "link": {
+    "forgotPassword": "పాస్వర్డ్ మర్చిపోయారా?",
+    "signUp": "సైన్ అప్"
+  },
+  "button": {
+    "loginAs": "{{role}} గా లాగిన్ చేయండి"
+  },
+  "helper": {
+    "dontHaveAccount": "ఖాతా లేదా?"
+  }
+  ,
+  "navbar": {
+    "logoTitle": "హాస్టల్ నిర్వహణ",
+    "home": "హోమ్",
+    "invoices": "ఇన్వాయిసెస్",
+    "tickets": "టిక్కెట్లు",
+    "forms": {
+      "label": "ఫారమ్‌లు",
+      "vacatingForm": "విడి ఫారమ్",
+      "exchangeForm": "ఎక్స్ఛేంజ్ ఫారమ్"
+    },
+    "profile": "ప్రొఫైల్",
+    "theme": {
+      "light": "సాఫ్ట్",
+      "dark": "నెగిటివ్"
+    }
+  },
+  "admin": {
+    "panelTitle": "అడ్మిన్ ప్యానల్",
+    "managementSystem": "నిర్వహణ వ్యవస్థ",
+    "managementSystemShort": "నిర్వహణ",
+    "searchPlaceholder": "టెనెంట్లు, గదులను వెతకండి...",
+    "loggedInAs": "లాగిన్ అయినవారు",
+    "profile": {
+      "title": "ప్రాపర్టీ అడ్మిన్",
+      "role": "అడ్మినిస్ట్రేటర్",
+      "viewProfile": "ప్రొఫైల్ చూడండి",
+      "settings": "సెట్టింగ్స్",
+      "logout": "లాగ్ అవుట్"
+    },
+    "menu": {
+      "dashboard": "డాష్‌బోర్డ్",
+      "tenantManagement": "టెనెంట్ నిర్వహణ",
+      "paymentTracking": "చెల్లింపు ట్రాకింగ్",
+      "tickets": "టిక్కెట్లు",
+      "formRequests": "ఫారమ్ అభ్యర్థనలు",
+      "expensesManagement": "ఖర్చుల నిర్వహణ",
+      "expensesLine1": "ఖర్చులు",
+      "expensesLine2": "నిర్వహణ",
+      "staffPayroll": "స్టాఫ్ & పేరోల్",
+      "roomOccupancy": "రూమ్ ఆక్యుపెన్సీ",
+      "reportsAnalytics": "రిపోర్ట్లు & విశ్లేషణ",
+      "settings": "సెట్టింగ్స్"
+    }
+  },
+  "tickets": {
+    "title": "సపోర్ట్ టిక్కెట్లు",
+    "noTickets": "టిక్కెట్లు కనుగొనబడలేదు.",
+    "errorLoading": "టిక్కెట్లను లోడ్ చేయడంలో లోపం",
+    "refresh": "రీఫ్రెష్"
+  ,
+    "subtitle": "మీ సహాయం కోరికలను మరియు సమస్యలను నిర్వహించండి",
+    "raiseNew": "కొత్త టిక్కెట్ లేవ్ చేయండి",
+    "noTicketsHelp": ""
+  }
+  ,
+  "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your account preferences",
+      "tabs": {
+        "profile": "Profile",
+        "password": "Password",
+        "theme": "Theme",
+        "notifications": "Notifications"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "update": "Update",
+      "success": {
+        "profile": "Profile updated successfully!",
+        "password": "Password changed successfully!",
+        "notifications": "Notification settings updated successfully!",
+        "theme": "Theme preference updated successfully!"
+      },
+      "error": "Error"
+    },
+  "tenantManagement": {
+    "title": "Tenant Management",
+    "subtitle": "Manage your hostel tenants",
+    "export": "Export",
+    "addTenant": "Add Tenant",
+    "searchPlaceholder": "Search by Name, Email, or Room",
+    "filterAll": "All Status",
+    "filterActive": "Active",
+    "filterVacated": "Vacated",
+    "loading": "Loading tenants...",
+    "noTenants": "No tenants found.",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "noRoomAssigned": "No room assigned",
+    "moveInDate": "Move-in",
+    "modalTitle": "Add New Tenant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "aadharNumber": "Aadhaar Number",
+    "roomAssignment": "Room Assignment",
+    "moveInDateLabel": "Move-in Date",
+    "selectRoom": "Select Room",
+    "emergencyContact": "Emergency Contact (Optional)",
+    "contactName": "Contact Name",
+    "relationship": "Relationship",
+    "emergencyContactPhone": "Emergency Contact Phone",
+    "securityDeposit": "Security Deposit",
+    "addTenantButton": "Add Tenant",
+    "cancel": "Cancel",
+    "required": "is required",
+    "roomSelectionRequired": "Room selection is required"
+  }
+}
